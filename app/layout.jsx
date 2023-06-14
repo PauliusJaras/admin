@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { NextAuthProvider } from "./providers/nextAuthProvider";
+import Nav from "./components/Nav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,7 +14,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextAuthProvider>{children}</NextAuthProvider>
+        <NextAuthProvider>
+          <div className="bg-blue-900 min-h-screen flex">
+            <Nav></Nav>
+            <div className="bg-white flex-grow mt-2 mr-2 rounded-lg p-4 mb-2">
+              {children}
+            </div>
+          </div>
+        </NextAuthProvider>
       </body>
     </html>
   );
