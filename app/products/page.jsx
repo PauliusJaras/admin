@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 export default function Home(){
     return (
         <>
-        <h1>products</h1>
+        <Link className="btn-primary" href={'/products/new'}>Add new product</Link>
         </>
     )
 }
