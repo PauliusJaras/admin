@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import axios from "axios";
 import { useState } from "react";
 
 export default function Home() {
@@ -8,8 +8,10 @@ export default function Home() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
 
-  function createProduct(){
-    
+  function createProduct(event){
+    event.preventDefault();
+    const productData = {title, description, price};
+    axios.post('/api/products', productData);
   }
 
   return (
