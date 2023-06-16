@@ -7,6 +7,10 @@ input, textarea{
     @apply mb-2;
 }
 
+img {
+    max-height: 100%;
+}
+
 input:focus, textarea:focus{
     @apply border-blue-900;
 }
