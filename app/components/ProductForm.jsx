@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Spinner from "./Spinner";
 
 export default function ProductForm({
   _id,
@@ -14,12 +15,13 @@ export default function ProductForm({
   const [price, setPrice] = useState(existingPrice || "");
   const [images, setImages] = useState(existingImages || []);
   const [goToProducts, setGoToProducts] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const router = useRouter();
 
   async function uploadImages(event) {
     const files = event.target?.files;
-    console.log(files);
     if (files?.length > 0) {
+      setIsUploading(true);
       const formData = new FormData();
       for (const file of files) {
         formData.append("file", file, file.name);
@@ -27,6 +29,7 @@ export default function ProductForm({
       const response = await axios.post("/api/upload", formData);
       setImages((oldImages) => [...oldImages, ...response.data.links]);
     }
+    setIsUploading(false);
   }
 
   async function saveProduct(event) {
@@ -35,6 +38,7 @@ export default function ProductForm({
       title: String(title),
       description: String(description),
       price: Number(price),
+      images: images,
     };
     if (_id) {
       //update
@@ -68,6 +72,11 @@ export default function ProductForm({
                 <img className="rounded-lg" src={link} alt="img" />
               </div>
             ))}
+          {isUploading && (
+            <div className="h-24 p-1 flex items-center">
+              <Spinner />
+            </div>
+          )}
           <label
             className="w-24 h-24 flex items-center 
           justify-center text-sm gap-1 text-gray-500 rounded-md
@@ -94,7 +103,6 @@ export default function ProductForm({
               onChange={uploadImages}
             ></input>
           </label>
-          {!images?.length && <div>This product has no images</div>}
         </div>
         <label>Description</label>
         <textarea
