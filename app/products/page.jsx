@@ -4,7 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function Products() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {

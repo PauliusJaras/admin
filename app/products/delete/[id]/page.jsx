@@ -4,7 +4,7 @@ import axios from "axios";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function DeleteProduct() {
   const [productInfo, setProductInfo] = useState();
   const router = useRouter();
   const pathname = usePathname();

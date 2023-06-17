@@ -5,7 +5,7 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function EditProduct() {
   const [productInfo, setProductInfo] = useState(null);
   const pathname = usePathname();
   const id = pathname.split("/").pop();
