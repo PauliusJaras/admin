@@ -3,9 +3,9 @@ import { Product } from "@/models/Product";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
+  await mongooseConnect();
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
-  await mongooseConnect();
 
   if (id) {
     return NextResponse.json(await Product.findOne({ _id: id }));
