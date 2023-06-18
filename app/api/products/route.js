@@ -1,5 +1,6 @@
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
+import axios from "axios";
 import { NextResponse } from "next/server";
 
 export async function GET(request) {
@@ -25,7 +26,7 @@ export async function POST(request) {
     description,
     price,
     images: [...images],
-    category
+    category,
   });
   return NextResponse.json(productDoc);
 }
@@ -38,22 +39,40 @@ export async function PUT(request) {
 
   console.log(images);
 
-  const productDoc = await Product.updateOne({_id: _id}, {
-    title,
-    description,
-    price,
-    images: [...images],
-    category,
-  });
+  const productDoc = await Product.updateOne(
+    { _id: _id },
+    {
+      title,
+      description,
+      price,
+      images: [...images],
+      category,
+    }
+  );
   return NextResponse.json(productDoc);
 }
 
-export async function DELETE(request){
+export async function DELETE(request) {
   await mongooseConnect();
 
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
+  const products = await Product.findOne({ _id: id });
+  const { images } = products;
 
-  const productDoc = await Product.deleteOne({_id: id});
+  if (images.length > 0) {
+    images.map(async (i) => {
+      const filename = i.split("/").pop();
+
+      try {
+        await axios.delete(
+          "http://localhost:3000/api/upload?filename=" + filename
+        );
+      } catch (error) {
+        console.log("Error");
+      }
+    });
+  }
+  const productDoc = await Product.deleteOne({ _id: id });
   return NextResponse.json(productDoc);
 }
