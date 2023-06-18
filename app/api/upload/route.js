@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
 const bucketName = "paul-next-ecommerce";
 
 export const config = { runtime: "experimental-edge" };
+
+const client = new S3Client({
+  region: "eu-north-1",
+  credentials: {
+    accessKeyId: process.env.S3_ACCESS_KEY,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  },
+});
 
 export async function POST(request) {
   const formData = await request.formData();
@@ -16,17 +24,7 @@ export async function POST(request) {
     );
   }
 
-  //reading file
   const buffer = Buffer.from(await file.arrayBuffer());
-
-  //connection to s3
-  const client = new S3Client({
-    region: "eu-north-1",
-    credentials: {
-      accessKeyId: process.env.S3_ACCESS_KEY,
-      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-    },
-  });
 
   const links = [];
 
@@ -60,4 +58,17 @@ export async function POST(request) {
   }
 
   return NextResponse.json({ links });
+}
+
+export async function DELETE(){
+
+  const { searchParams } = new URL(request.url);
+  const filename = searchParams.get("filename");
+
+  await client.send(
+    new DeleteObjectCommand({
+      Bucket: bucketName,
+      Key: filename
+    })
+  )
 }

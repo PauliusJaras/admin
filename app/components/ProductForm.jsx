@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
 
@@ -10,14 +10,23 @@ export default function ProductForm({
   description: existingDescription,
   price: existingPrice,
   images: existingImages,
+  category: existingCategory,
 }) {
   const [title, setTitle] = useState(existingTitle || "");
   const [description, setDescription] = useState(existingDescription || "");
   const [price, setPrice] = useState(existingPrice || "");
   const [images, setImages] = useState(existingImages || []);
+  const [category, setCategory] = useState(existingCategory || "");
   const [goToProducts, setGoToProducts] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [categories, setCategories] = useState([]);
   const router = useRouter();
+
+  useEffect(() => {
+    axios.get("/api/categories").then((result) => {
+      setCategories(result.data);
+    });
+  }, []);
 
   async function uploadImages(event) {
     const files = event.target?.files;
@@ -40,6 +49,7 @@ export default function ProductForm({
       description: String(description),
       price: Number(price),
       images: images,
+      category: category
     };
     if (_id) {
       //update
@@ -51,7 +61,7 @@ export default function ProductForm({
     setGoToProducts(true);
   }
 
-  function updateImagesOrder(images){
+  function updateImagesOrder(images) {
     setImages(images);
   }
 
@@ -69,9 +79,26 @@ export default function ProductForm({
           value={title}
           onChange={(event) => setTitle(event.target.value)}
         />
+        <label>Category</label>
+        <select
+          value={category}
+          onChange={(event) => setCategory(event.target.value)}
+        >
+          <option value="">No category</option>
+          {categories.length > 0 &&
+            categories.map((category, index) => (
+              <option key={index} value={category._id}>
+                {category.title}
+              </option>
+            ))}
+        </select>
         <label>Images</label>
         <div className="mb-2 flex flex-wrap gap-2">
-          <ReactSortable className="flex flex-wrap gap-1" list={images} setList={updateImagesOrder}>
+          <ReactSortable
+            className="flex flex-wrap gap-1"
+            list={images}
+            setList={updateImagesOrder}
+          >
             {!!images?.length &&
               images.map((link, index) => (
                 <div className="h-24" key={index}>

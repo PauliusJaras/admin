@@ -37,7 +37,8 @@ export default function Categories() {
   }
 
   async function deleteCategory(category){
-    Swal.fire({
+    
+    const alerOptions = {
         title: 'Delete category',
         text: `Are you sure you want to delete ${category.title}?`,
         showCancelButton: true,
@@ -45,7 +46,9 @@ export default function Categories() {
         confirmButtonText: 'Delete!',
         confirmButtonColor: '#d55',
         reverseButtons: true,
-      }).then(async result => {
+      }
+
+    Swal.fire(alerOptions).then(async result => {
         if(result.isConfirmed){
            await axios.delete("api/categories?id="+category._id)
            setResetData((s) => !s);
@@ -79,7 +82,7 @@ export default function Categories() {
             ))}
         </select>
         <button type="submit" className="btn-primary py-1">
-          Save
+          {editedCategory ? "Update" : "Save"}
         </button>
       </form>
       <table className="basic mt-2">
