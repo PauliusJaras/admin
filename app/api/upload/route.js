@@ -4,10 +4,12 @@ import {
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
+import { isAdminRequest } from "../auth/[...nextauth]/route";
 
 export const config = { runtime: "experimental-edge" };
+const bucketName = "paul-next-ecommerce";
 
-//S3 client
+
 const client = new S3Client({
   region: "eu-north-1",
   credentials: {
@@ -16,15 +18,14 @@ const client = new S3Client({
   },
 });
 
-//S3 bucket
-const bucketName = "paul-next-ecommerce";
 
-//uploads images to S3
 export async function GET() {
+  await isAdminRequest()
   return NextResponse.json("ok");
 }
 
 export async function POST(request) {
+  await isAdminRequest()
   const formData = await request.formData();
   const file = formData.get("file") || null;
 
@@ -70,8 +71,8 @@ export async function POST(request) {
   return NextResponse.json({ links });
 }
 
-//Deletes images from S3
 export async function DELETE(request) {
+  await isAdminRequest()
   const { searchParams } = new URL(request.url);
   const filename = searchParams.get("filename");
 

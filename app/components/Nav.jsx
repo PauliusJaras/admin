@@ -2,12 +2,18 @@
 
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname} from "next/navigation";
 
 export default function Nav() {
   const inactiveLink = "flex gap-1 p-1 mb-2";
   const activeLink = inactiveLink + " bg-white text-blue-900 rounded-l-lg";
   const pathname = usePathname();
+
+  async function logout(){
+    await signOut({
+      callbackUrl: '/'
+    });
+  }
 
   return (
     <aside className="text-white p-4 pr-0">
@@ -136,7 +142,7 @@ export default function Nav() {
           </svg>
           Settings
         </Link>
-        <button onClick={() => signOut()} className={inactiveLink}>
+        <button onClick={() => logout()} className={inactiveLink}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

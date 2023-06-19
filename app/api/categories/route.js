@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Category } from "@/models/Category";
+import { isAdminRequest } from "../auth/[...nextauth]/route";
 
 export async function POST(request) {
   await mongooseConnect();
+  await isAdminRequest();
 
   const res = await request.json();
   let { title, parentCategory, properties } = res;
@@ -23,12 +25,14 @@ export async function POST(request) {
 
 export async function GET() {
   await mongooseConnect();
+  await isAdminRequest();
 
   return NextResponse.json(await Category.find().populate("parent"));
 }
 
 export async function PUT(request) {
   await mongooseConnect();
+  await isAdminRequest();
   const res = await request.json();
   let { title, parentCategory, properties, _id } = res;
   if (!parentCategory) {
@@ -49,6 +53,7 @@ export async function PUT(request) {
 
 export async function DELETE(request) {
     await mongooseConnect();
+    await isAdminRequest();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 
