@@ -17,8 +17,11 @@ export default function ProductForm({
   const [description, setDescription] = useState(existingDescription || "");
   const [price, setPrice] = useState(existingPrice || "");
   const [images, setImages] = useState(existingImages || []);
+  const [removableImages, setRemovableImages] = useState([]);
   const [category, setCategory] = useState(existingCategory || "");
-  const [productProperties, setProductProperties] = useState(existingProperties || {});
+  const [productProperties, setProductProperties] = useState(
+    existingProperties || {}
+  );
   const [goToProducts, setGoToProducts] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -43,8 +46,33 @@ export default function ProductForm({
     }
     setIsUploading(false);
   }
+  
+  function removeImage(index, link){
+    setImages(images => {
+      const allImages = [...images];
+      allImages.splice(index, 1);
+      setRemovableImages(prev => [...prev, link])
+      return allImages;
+    })
+  }
 
   async function saveProduct(event) {
+
+    if(removableImages.length > 0){
+      removableImages.forEach( async(i) => {
+
+        const filename = i.valueOf().split("/").pop();
+
+        try {
+          await axios.delete(
+            "http://localhost:3000/api/upload?filename=" + filename
+          );
+        } catch (error) {
+          console.log("Error:", error);
+        }
+      })
+    }
+
     event.preventDefault();
     const productData = {
       title: String(title),
@@ -107,7 +135,6 @@ export default function ProductForm({
         <select
           value={category}
           onChange={(event) => {
-
             setCategory(event.target.value);
           }}
         >
@@ -143,7 +170,24 @@ export default function ProductForm({
           >
             {!!images?.length &&
               images.map((link, index) => (
-                <div className="h-24" key={index}>
+                <div className="h-24 relative" key={index}>
+                  <button type="button" onClick={() => removeImage(index, link)} className="btn-remove">
+                    {" "}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
                   <img className="rounded-lg" src={link} alt="product image" />
                 </div>
               ))}

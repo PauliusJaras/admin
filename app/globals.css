@@ -54,3 +54,11 @@ table.basic a{
 .btn-default{
     @apply bg-gray-500 text-white;
 }
+
+.btn-remove{
+    @apply absolute top-1 right-1 text-white;
+}
+
+.btn-remove:hover{
+    @apply bg-blue-900
+}
