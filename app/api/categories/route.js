@@ -6,7 +6,7 @@ export async function POST(request) {
   await mongooseConnect();
 
   const res = await request.json();
-  let { title, parentCategory } = res;
+  let { title, parentCategory, properties } = res;
 
   if (!parentCategory) {
     parentCategory = null;
@@ -15,6 +15,7 @@ export async function POST(request) {
   const categoryDoc = await Category.create({
     title,
     parent: parentCategory,
+    properties: properties,
   });
 
   return NextResponse.json(categoryDoc);
@@ -29,7 +30,7 @@ export async function GET() {
 export async function PUT(request) {
   await mongooseConnect();
   const res = await request.json();
-  let { title, parentCategory, _id } = res;
+  let { title, parentCategory, properties, _id } = res;
   if (!parentCategory) {
     parentCategory = null;
   }
@@ -39,6 +40,7 @@ export async function PUT(request) {
     {
       title,
       parent: parentCategory,
+      properties: properties,
     }
   );
 

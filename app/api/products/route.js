@@ -69,7 +69,7 @@ export async function DELETE(request) {
           "http://localhost:3000/api/upload?filename=" + filename
         );
       } catch (error) {
-        console.log("Error");
+        console.log("Error:", error);
       }
     });
   }
