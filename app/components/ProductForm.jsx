@@ -11,12 +11,14 @@ export default function ProductForm({
   price: existingPrice,
   images: existingImages,
   category: existingCategory,
+  properties: existingProperties,
 }) {
   const [title, setTitle] = useState(existingTitle || "");
   const [description, setDescription] = useState(existingDescription || "");
   const [price, setPrice] = useState(existingPrice || "");
   const [images, setImages] = useState(existingImages || []);
   const [category, setCategory] = useState(existingCategory || "");
+  const [productProperties, setProductProperties] = useState(existingProperties || {});
   const [goToProducts, setGoToProducts] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -49,7 +51,8 @@ export default function ProductForm({
       description: String(description),
       price: Number(price),
       images: images,
-      category: category
+      category: category,
+      properties: productProperties,
     };
     if (_id) {
       //update
@@ -69,6 +72,27 @@ export default function ProductForm({
     router.push("/products");
   }
 
+  function setProductProp(propName, value) {
+    setProductProperties((prev) => {
+      const newProductProps = { ...prev };
+      newProductProps[propName] = value;
+      return newProductProps;
+    });
+  }
+
+  const propertiesToFill = [];
+  if (categories.length > 0 && category) {
+    let catInfo = categories.find(({ _id }) => _id === category);
+    propertiesToFill.push(...catInfo.properties);
+    while (catInfo?.parent?._id) {
+      const parentCat = categories.find(
+        ({ _id }) => _id === catInfo?.parent?._id
+      );
+      propertiesToFill.push(...parentCat.properties);
+      catInfo = parentCat;
+    }
+  }
+
   return (
     <>
       <form onSubmit={saveProduct}>
@@ -82,7 +106,10 @@ export default function ProductForm({
         <label>Category</label>
         <select
           value={category}
-          onChange={(event) => setCategory(event.target.value)}
+          onChange={(event) => {
+
+            setCategory(event.target.value);
+          }}
         >
           <option value="">No category</option>
           {categories.length > 0 &&
@@ -92,6 +119,21 @@ export default function ProductForm({
               </option>
             ))}
         </select>
+        {propertiesToFill.length > 0 && <label>Properties</label>}
+        {propertiesToFill.length > 0 &&
+          propertiesToFill.map((p, index) => (
+            <div className="flex gap-1" key={index}>
+              <div>{p.name}</div>
+              <select
+                value={productProperties[p.name]}
+                onChange={(event) => setProductProp(p.name, event.target.value)}
+              >
+                {p.values.map((v, index) => (
+                  <option key={index}>{v}</option>
+                ))}
+              </select>
+            </div>
+          ))}
         <label>Images</label>
         <div className="mb-2 flex flex-wrap gap-2">
           <ReactSortable
