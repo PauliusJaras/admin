@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 input, textarea, select{
-    @apply border border-gray-300 rounded-md px-1 w-full;
+    @apply border border-gray-200 rounded-sm w-full py-2 px-3;
     @apply mb-2;
 }
 
@@ -16,49 +16,57 @@ input:focus, textarea:focus, select:focus{
 }
 
 h1{
-    @apply text-blue-900 mb-2 text-xl;
+    @apply text-primary mb-4 text-xl;
 }
 
 label{
-    @apply text-blue-900
+    @apply text-gray-800
 }
 
 .btn-primary{
-    @apply bg-blue-900 text-white px-4 rounded-md;
+    @apply bg-primary text-white px-4 py-1 rounded-sm;
 }
 
 table.basic{
-    @apply w-full;
+    @apply w-full bg-white rounded-sm shadow-md;
 }
 
 table.basic thead tr td{
-    @apply bg-blue-100
+    @apply text-sm text-gray-600 uppercase border-b border-gray-200 px-4 py-2;
 }
 
 table.basic tr td {
-    @apply border border-blue-200 p-1;
+    @apply px-4 py-1;
 }
 
-table.basic a{
-    @apply bg-blue-900 text-white text-sm py-1 px-2 rounded-md inline-flex gap-1 m-1;
+.btn-action{
+    @apply bg-gray-700 text-sm text-white px-4 py-1 rounded-sm inline-flex gap-1 m-1 items-center;
+}
+
+.btn-action:nth-of-type(2n){
+    @apply bg-red-500;
 }
 
 .btn-default, .btn-red{
     @apply px-4 py-1 rounded-md;
 }
 
-.btn-red{
-    @apply bg-red-800 text-white;
+.btn-red, .btn-default{
+    @apply text-white px-4 py-1 rounded-sm;
 }
 
 .btn-default{
-    @apply bg-gray-500 text-white;
+    @apply bg-gray-700;
+}
+
+.btn-red{
+    @apply bg-red-500;
 }
 
 .btn-remove{
-    @apply absolute top-1 right-1 text-white;
+    @apply absolute top-1 right-1 text-white bg-gray-600/75;
 }
 
 .btn-remove:hover{
-    @apply bg-blue-900
+    @apply bg-primary rounded-sm
 }

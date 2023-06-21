@@ -4,18 +4,18 @@ import LoginButton from "./LoginButton";
 import Nav from "./Nav";
 import {useSession } from 'next-auth/react';
 
-export default function Wrapper({ children }) {
+export default function Wrapper({ children, show, setShowNav }) {
 
 
     const {data: session, status} = useSession();
 
-    console.log(status);
+    console.log(session);
 
     if(session){
         return (
             <>
-              <Nav></Nav>
-              <div className="bg-white flex-grow mt-2 mr-2 rounded-lg p-4 mb-2">
+              <Nav setShowNav={setShowNav} show={show} ></Nav>
+              <div className="flex-grow p-4">
                 {children}
               </div>
             </>

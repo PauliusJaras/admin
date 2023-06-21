@@ -29,15 +29,15 @@ export default function Products() {
           {products.map((product, index) => (
             <tr key={index}>
               <td>{product.title}</td>
-              <td>
-                <Link href={"/products/edit/" + product._id}>
+              <td className="flex justify-end">
+                <Link className="btn-action" href={"/products/edit/" + product._id}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
-                    className="w-4 h-4"
+                    className="w-4 h-4 "
                   >
                     <path
                       strokeLinecap="round"
@@ -47,7 +47,7 @@ export default function Products() {
                   </svg>
                   Edit
                 </Link>
-                <Link href={"/products/delete/" + product._id}>
+                <Link className="btn-action" href={"/products/delete/" + product._id}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

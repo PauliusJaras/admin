@@ -46,21 +46,19 @@ export default function ProductForm({
     }
     setIsUploading(false);
   }
-  
-  function removeImage(index, link){
-    setImages(images => {
+
+  function removeImage(index, link) {
+    setImages((images) => {
       const allImages = [...images];
       allImages.splice(index, 1);
-      setRemovableImages(prev => [...prev, link])
+      setRemovableImages((prev) => [...prev, link]);
       return allImages;
-    })
+    });
   }
 
   async function saveProduct(event) {
-
-    if(removableImages.length > 0){
-      removableImages.forEach( async(i) => {
-
+    if (removableImages.length > 0) {
+      removableImages.forEach(async (i) => {
         const filename = i.valueOf().split("/").pop();
 
         try {
@@ -70,7 +68,7 @@ export default function ProductForm({
         } catch (error) {
           console.log("Error:", error);
         }
-      })
+      });
     }
 
     event.preventDefault();
@@ -149,8 +147,10 @@ export default function ProductForm({
         {propertiesToFill.length > 0 && <label>Properties</label>}
         {propertiesToFill.length > 0 &&
           propertiesToFill.map((p, index) => (
-            <div className="flex gap-1" key={index}>
-              <div>{p.name}</div>
+            <div className="" key={index}>
+              <label className="capitalize text-sm text-gray-600">
+                {p.name}
+              </label>
               <select
                 value={productProperties[p.name]}
                 onChange={(event) => setProductProp(p.name, event.target.value)}
@@ -171,7 +171,11 @@ export default function ProductForm({
             {!!images?.length &&
               images.map((link, index) => (
                 <div className="h-24 relative" key={index}>
-                  <button type="button" onClick={() => removeImage(index, link)} className="btn-remove">
+                  <button
+                    type="button"
+                    onClick={() => removeImage(index, link)}
+                    className="btn-remove"
+                  >
                     {" "}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -188,7 +192,11 @@ export default function ProductForm({
                       />
                     </svg>
                   </button>
-                  <img className="rounded-lg" src={link} alt="product image" />
+                  <img
+                    className="rounded-lg bg-white p-2 shadow-sm rounded-sm border border-gray-100"
+                    src={link}
+                    alt="product image"
+                  />
                 </div>
               ))}
           </ReactSortable>
@@ -199,8 +207,8 @@ export default function ProductForm({
           )}
           <label
             className="w-24 h-24 flex items-center 
-          justify-center text-sm gap-1 text-gray-500 rounded-md
-          bg-gray-200"
+          justify-center text-sm gap-1 text-primary rounded-md
+          bg-white shadow-sm border border-primary/50"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

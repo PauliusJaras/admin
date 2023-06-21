@@ -2,21 +2,28 @@
 
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 
-export default function Nav() {
+export default function Nav({ show, setShowNav }) {
   const inactiveLink = "flex gap-1 p-1 mb-2";
-  const activeLink = inactiveLink + " bg-white text-blue-900 rounded-l-lg";
+  const activeLink = inactiveLink + " bg-highlight text-black rounded-md";
+  const inactiveIcon = "w-6 h-6";
+  const activeIcon = inactiveIcon + " text-primary";
   const pathname = usePathname();
 
-  async function logout(){
+  async function logout() {
     await signOut({
-      callbackUrl: '/'
+      callbackUrl: "/",
     });
   }
 
   return (
-    <aside className="text-white p-4 pr-0">
+    <aside onClick={() => setShowNav(false)}
+      className={
+        (show ? "left-0" : "-left-full") +
+        " top-0 text-gray-500 p-4 fixed w-full bg-bgGray h-full md:static md:w-auto transition-all"
+      }
+    >
       <Link href={"/"} className="flex gap-1 mb-4 mr-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +52,7 @@ export default function Nav() {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="w-6 h-6"
+            className={pathname === "/" ? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
@@ -65,7 +72,9 @@ export default function Nav() {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="w-6 h-6"
+            className={
+              pathname.includes("/products") ? activeIcon : inactiveIcon
+            }
           >
             <path
               strokeLinecap="round"
@@ -87,7 +96,9 @@ export default function Nav() {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className={
+              pathname.includes("/categories") ? activeIcon : inactiveIcon
+            }
           >
             <path
               strokeLinecap="round"
@@ -107,7 +118,7 @@ export default function Nav() {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className={pathname.includes("/orders") ? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
@@ -132,7 +143,9 @@ export default function Nav() {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="w-6 h-6"
+            className={
+              pathname.includes("/settings") ? activeIcon : inactiveIcon
+            }
           >
             <path
               strokeLinecap="round"
