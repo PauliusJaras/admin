@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         <NextAuthProvider>
           <div className="bg-bgGray min-h-screen ">
             <div className="flex items-center justify-between md:hidden">
-              <Link href={"/"} className="flex gap-1 mb-4 mr-2">
+              <Link href={"/"} className="flex gap-1 m-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
