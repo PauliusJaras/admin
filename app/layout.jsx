@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { NextAuthProvider } from "./providers/nextAuthProvider";
 import Wrapper from "../components/shared/Wrapper";
+import { GlobalProvider } from "@/context/GlobalContext";
 
 const inter = Inter({ subsets: ["latin"] });
 0;
@@ -15,11 +16,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <GlobalProvider>
         <NextAuthProvider>
           <div className="bg-bgGray h-screen">
               <Wrapper>{children}</Wrapper>
           </div>
         </NextAuthProvider>
+        </GlobalProvider>
       </body>
     </html>
   );

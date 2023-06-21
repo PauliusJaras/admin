@@ -1,9 +1,9 @@
 import Link from "next/link"
 
-export default function Logo(){
+export default function Logo({className}){
     return (
         <>
-        <Link href={"/"} className="flex gap-1 mb-4 mr-2">
+        <Link href={"/"} className={"flex gap-1 " + className}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
