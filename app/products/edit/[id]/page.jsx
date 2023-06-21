@@ -1,6 +1,6 @@
 "use client";
 
-import ProductForm from "@/app/components/ProductForm";
+import ProductForm from "@/components/products/ProductForm";
 import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";

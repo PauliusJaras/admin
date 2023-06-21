@@ -15,6 +15,7 @@ export default function Products() {
 
   return (
     <>
+      <h1>Products</h1>
       <Link className="btn-primary" href={"/products/new"}>
         Add new product
       </Link>
@@ -30,7 +31,10 @@ export default function Products() {
             <tr key={index}>
               <td>{product.title}</td>
               <td className="flex flex-wrap justify-end">
-                <Link className="btn-action" href={"/products/edit/" + product._id}>
+                <Link
+                  className="btn-action"
+                  href={"/products/edit/" + product._id}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -47,7 +51,10 @@ export default function Products() {
                   </svg>
                   Edit
                 </Link>
-                <Link className="btn-action" href={"/products/delete/" + product._id}>
+                <Link
+                  className="btn-action"
+                  href={"/products/delete/" + product._id}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

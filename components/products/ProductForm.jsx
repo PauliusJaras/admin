@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Spinner from "./Spinner";
+import Spinner from "../shared/Spinner";
 import { ReactSortable } from "react-sortablejs";
 
 export default function ProductForm({
@@ -170,7 +170,7 @@ export default function ProductForm({
           >
             {!!images?.length &&
               images.map((link, index) => (
-                <div className="h-24 relative" key={index}>
+                <div className="h-24 relative z-0" key={index}>
                   <button
                     type="button"
                     onClick={() => removeImage(index, link)}

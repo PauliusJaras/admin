@@ -16,6 +16,9 @@ module.exports = {
         primary: '#5542F6',
         highlight: '#EAE8FB',
         bgGray: '#FBFAFD',
+      },
+      zIndex: {
+        negative: '-1'
       }
     },
   },
