@@ -201,7 +201,7 @@ export default function Categories() {
                   <td>{category.title}</td>
                   <td>{category?.parent?.title}</td>
                   <td>
-                    <div className="flex justify-end gap-1">
+                    <div className="flex flex-wrap justify-end gap-1">
                       <button
                         onClick={() => editCategory(category)}
                         className="btn-action mr-1"

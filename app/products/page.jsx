@@ -29,7 +29,7 @@ export default function Products() {
           {products.map((product, index) => (
             <tr key={index}>
               <td>{product.title}</td>
-              <td className="flex justify-end">
+              <td className="flex flex-wrap justify-end">
                 <Link className="btn-action" href={"/products/edit/" + product._id}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
