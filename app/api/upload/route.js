@@ -6,7 +6,7 @@ import {
 } from "@aws-sdk/client-s3";
 import { isAdminRequest } from "../auth/[...nextauth]/route";
 
-export const config = { runtime: "experimental-edge" };
+//export const config = { runtime: "experimental-edge" };
 const bucketName = "paul-next-ecommerce";
 
 
