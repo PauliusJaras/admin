@@ -22,8 +22,11 @@ export async function POST(request) {
   await isAdminRequest();
 
   const res = await request.json();
-  const { title, description, price, images, category, properties } =
-    res;
+  let { title, description, price, images, category, properties } = res;
+
+  if(!category){
+    category = null;
+  }
 
   const productDoc = await Product.create({
     title,
@@ -41,7 +44,7 @@ export async function PUT(request) {
   await isAdminRequest();
 
   const res = await request.json();
-  const {
+  let {
     title,
     description,
     price,
@@ -50,6 +53,10 @@ export async function PUT(request) {
     properties,
     _id,
   } = res;
+
+  if(!category){
+    category = null;
+  }
 
   const productDoc = await Product.updateOne(
     { _id: _id },

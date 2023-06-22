@@ -198,7 +198,7 @@ export default function Categories() {
             {categories.length > 0 &&
               categories.map((category, index) => (
                 <tr key={index}>
-                  <td>{category.title}</td>
+                  <td>{category["title"]}</td>
                   <td>{category?.parent?.title}</td>
                   <td>
                     <div className="flex flex-wrap justify-end gap-1">

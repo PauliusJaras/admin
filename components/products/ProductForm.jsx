@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import SelectProductCategory from "./SelectProductCategory";
 import SelectProductProperties from "./SelectProductProperties";
 import UploadProductImages from "./UploadProductImages";
-import { removeImages } from "@/functions/removeImages";
-
 
 export default function ProductForm({
   _id,
@@ -24,7 +22,6 @@ export default function ProductForm({
   const [productProperties, setProductProperties] = useState(
     existingProperties || {}
   );
-  const [goToProducts, setGoToProducts] = useState(false);
   const [categories, setCategories] = useState([]);
   const [removableImages, setRemovableImages] = useState([]);
   const router = useRouter();
@@ -36,7 +33,21 @@ export default function ProductForm({
   }, []);
 
   async function saveProduct(event) {
-    removeImages(removableImages);
+
+    if (removableImages.length > 0) {
+      removableImages.forEach(async (i) => {
+        const filename = i.valueOf().split("/").pop();
+
+        try {
+          await axios.delete(
+            "http://localhost:3000/api/upload?filename=" + filename
+          );
+        } catch (error) {
+          console.log("Error:", error);
+        }
+      });
+    }
+
     event.preventDefault();
     const productData = {
       title: String(title),
@@ -51,10 +62,6 @@ export default function ProductForm({
     } else {
       await axios.post("/api/products", productData);
     }
-    setGoToProducts(true);
-  }
-
-  if (goToProducts) {
     router.push("/products");
   }
 
@@ -81,9 +88,21 @@ export default function ProductForm({
           value={title}
           onChange={(event) => setTitle(event.target.value)}
         />
-        <SelectProductCategory setCategory={setCategory} category={category} categories={categories}></SelectProductCategory>
-        <SelectProductProperties propertiesToFill={propertiesToFill} productProperties={productProperties} setProductProperties={setProductProperties}></SelectProductProperties>
-        <UploadProductImages images={images} setImages={setImages} setRemovableImages={setRemovableImages}></UploadProductImages>
+        <SelectProductCategory
+          setCategory={setCategory}
+          category={category}
+          categories={categories}
+        ></SelectProductCategory>
+        <SelectProductProperties
+          propertiesToFill={propertiesToFill}
+          productProperties={productProperties}
+          setProductProperties={setProductProperties}
+        ></SelectProductProperties>
+        <UploadProductImages
+          images={images}
+          setImages={setImages}
+          setRemovableImages={setRemovableImages}
+        ></UploadProductImages>
         <label>Description</label>
         <textarea
           placeholder="Description"
