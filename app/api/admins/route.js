@@ -24,7 +24,6 @@ export async function POST(request){
 
     const res = await request.json();
     const {email} = res;
-    console.log("Emailas:", email);
 
     const checkDuplicate = await Admin.findOne( {email: email});   
 
