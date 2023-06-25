@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import SelectProductCategory from "./SelectProductCategory";
 import SelectProductProperties from "./SelectProductProperties";
 import UploadProductImages from "./UploadProductImages";
+import { usePostProducts } from "@/hooks/usePostProducts";
+import { usePutProducts } from "@/hooks/usePutProducts";
+import { UseDeleteImage } from "@/hooks/UseDeleteImage";
 
 export default function ProductForm({
   _id,
@@ -24,6 +27,9 @@ export default function ProductForm({
   );
   const [categories, setCategories] = useState([]);
   const [removableImages, setRemovableImages] = useState([]);
+  const [setCreateProduct] = usePostProducts();
+  const [setEditProduct] = usePutProducts();
+  const [setDeleteProductImages] = UseDeleteImage(); 
   const router = useRouter();
 
   useEffect(() => {
@@ -33,22 +39,11 @@ export default function ProductForm({
   }, []);
 
   async function saveProduct(event) {
-
+    event.preventDefault();
     if (removableImages.length > 0) {
-      removableImages.forEach(async (i) => {
-        const filename = i.valueOf().split("/").pop();
-
-        try {
-          await axios.delete(
-            "/api/upload?filename=" + filename
-          );
-        } catch (error) {
-          console.log("Error:", error);
-        }
-      });
+      setDeleteProductImages(removableImages);
     }
 
-    event.preventDefault();
     const productData = {
       title: String(title),
       description: String(description),
@@ -57,10 +52,11 @@ export default function ProductForm({
       category: category,
       properties: productProperties,
     };
+
     if (_id) {
-      await axios.put("/api/products", { _id, ...productData });
+      await setEditProduct({ _id, ...productData });
     } else {
-      await axios.post("/api/products", productData);
+      await setCreateProduct(productData);
     }
     router.push("/products");
   }

@@ -1,29 +1,27 @@
 "use client";
 
 import ProductForm from "@/components/products/ProductForm";
-import axios from "axios";
+import { useGetProducts } from "@/hooks/useGetProducts";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function EditProduct() {
-  const [productInfo, setProductInfo] = useState(null);
   const pathname = usePathname();
   const id = pathname.split("/").pop();
+  const [product, setProductUpdate] = useGetProducts();
 
   useEffect(() => {
     if (!id) {
       return;
     }
-    axios.get("/api/products?id=" + id).then((response) => {
-      setProductInfo(response.data);
-    });
-  }, [id]);
+    setProductUpdate({id});
+  }, [id, setProductUpdate]);
 
   return (
     <>
       <h1>Edit Product</h1>
-      {productInfo && (
-        <ProductForm {...productInfo}></ProductForm>
+      {product && (
+        <ProductForm {...product}></ProductForm>
       )}
     </>
   );

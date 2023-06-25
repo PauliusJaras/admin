@@ -1,18 +1,16 @@
 "use client";
 
 import Table from "@/components/shared/Table";
-import axios from "axios";
+import { useGetProducts } from "@/hooks/useGetProducts";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Products() {
-  const [products, setProducts] = useState([]);
+  const [products, setProductUpdate] = useGetProducts();
 
   useEffect(() => {
-    axios.get("/api/products").then((response) => {
-      setProducts(response.data);
-    });
-  }, []);
+      setProductUpdate(Date.now);
+  }, [setProductUpdate]);
 
   return (
     <>

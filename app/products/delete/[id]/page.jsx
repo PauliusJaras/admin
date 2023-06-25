@@ -1,40 +1,44 @@
 "use client";
 
 import ConfirmBox from "@/components/shared/ConfirmBox";
-import axios from "axios";
+import { useDeleteProduct } from "@/hooks/UseDeleteProduct";
+import { useGetProducts } from "@/hooks/useGetProducts";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function DeleteProduct() {
-  const [productInfo, setProductInfo] = useState();
   const router = useRouter();
   const pathname = usePathname();
   const id = pathname.split("/").pop();
+  const [product, setProductUpdate] = useGetProducts();
+  const [setDeleteProductId] = useDeleteProduct();
 
   useEffect(() => {
     if (!id) {
       return;
     }
-
-    axios.get("/api/products?id=" + id).then((response) => {
-      setProductInfo(response.data);
-    });
-  }, [id]);
+    setProductUpdate({ id });
+  }, [id, setProductUpdate]);
 
   function goBack() {
     router.push("/products");
   }
 
   async function deleteProduct() {
-    await axios.delete("/api/products?id=" + id);
+    await setDeleteProductId(id);
+    setProductUpdate(Date.now);
     goBack();
   }
 
   return (
     <>
-      {productInfo && (
+      {product && (
         <>
-          <ConfirmBox confirmHandler={deleteProduct} declineHandler={goBack} titleText={`Do you really want to delete product ${productInfo.title}?`}></ConfirmBox>
+          <ConfirmBox
+            confirmHandler={deleteProduct}
+            declineHandler={goBack}
+            titleText={`Do you really want to delete product ${product.title}?`}
+          ></ConfirmBox>
         </>
       )}
     </>
