@@ -76,7 +76,7 @@ export async function DELETE(request) {
   await mongooseConnect();
   await isAdminRequest();
 
-  const { searchParams } = new URL(request.url);
+  const { searchParams, origin } = new URL(request.url);
   const id = searchParams.get("id");
   const products = await Product.findOne({ _id: id });
   const { images } = products;
@@ -84,10 +84,9 @@ export async function DELETE(request) {
   if (images.length > 0) {
     images.map(async (i) => {
       const filename = i.split("/").pop();
-
       try {
         await axios.delete(
-          "http://localhost:3000/api/upload?filename=" + filename
+          origin + "/api/upload?filename=" + filename
         );
       } catch (error) {
         console.log("Error:", error);

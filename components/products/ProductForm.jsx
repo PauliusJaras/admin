@@ -40,7 +40,7 @@ export default function ProductForm({
 
         try {
           await axios.delete(
-            "http://localhost:3000/api/upload?filename=" + filename
+            "/api/upload?filename=" + filename
           );
         } catch (error) {
           console.log("Error:", error);

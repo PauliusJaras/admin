@@ -72,7 +72,6 @@ export async function POST(request) {
 }
 
 export async function DELETE(request) {
-  await isAdminRequest()
   const { searchParams } = new URL(request.url);
   const filename = searchParams.get("filename");
 

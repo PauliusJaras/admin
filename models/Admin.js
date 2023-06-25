@@ -1,4 +1,4 @@
-const { Schema, model, models, default: mongoose } = require("mongoose");
+const { Schema, model, models} = require("mongoose");
 
 const AdminSchema = new Schema({
   email: { type: String, required: true },
