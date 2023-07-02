@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 
-export const UseDeleteImage = _ =>{
+export const useDeleteImage = _ =>{
     const [images, setImages] = useState(null);
 
     useEffect(() => {

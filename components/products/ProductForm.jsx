@@ -6,7 +6,7 @@ import SelectProductProperties from "./SelectProductProperties";
 import UploadProductImages from "./UploadProductImages";
 import { usePostProducts } from "@/hooks/usePostProducts";
 import { usePutProducts } from "@/hooks/usePutProducts";
-import { UseDeleteImage } from "@/hooks/UseDeleteImage";
+import { useDeleteImage } from "@/hooks/useDeleteImage";
 
 export default function ProductForm({
   _id,
@@ -29,7 +29,7 @@ export default function ProductForm({
   const [removableImages, setRemovableImages] = useState([]);
   const [setCreateProduct] = usePostProducts();
   const [setEditProduct] = usePutProducts();
-  const [setDeleteProductImages] = UseDeleteImage(); 
+  const [setDeleteProductImages] = useDeleteImage(); 
   const router = useRouter();
 
   useEffect(() => {
