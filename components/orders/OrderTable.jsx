@@ -24,7 +24,7 @@ export default function OrderTable() {
           {orderData !== null &&
             orderData.map((order, index) => (
               <tr key={index}>
-                <td>{order?.createdAt?.replace('T', ' ').substring(0, 19)}</td>
+                <td>{new Date(order?.createdAt).toLocaleString()}</td>
                 <td>
                   {order.name} {order.email} {order.address} {order.postalCode}{" "}
                   {order.city} {order.country}
