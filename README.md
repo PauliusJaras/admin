@@ -1,6 +1,6 @@
 # Admin Panel For Ecommerce Website
 
-Simple admin panel that allows admin users to control the ecommerce website data. 
+An admin panel that allows admin users to control the ecommerce website data. 
 
 ## Description
 
