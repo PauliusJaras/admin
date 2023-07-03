@@ -1,34 +1,76 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Admin Panel For Ecommerce Website
+
+Simple admin panel that allows admin users to control the ecommerce website data. 
+
+## Description
+
+A project created with the latest Next js version (App Router), next Auth, amazon S3, tailwind, react, mongoDB, mongoose, and axios. Only authentificated users can access the platform. Users with access can CRUD products/categories and add new admins. They can also review and verify existing orders.
 
 ## Getting Started
 
-First, run the development server:
+#### Prerequisites
+Node.js - download and install
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+```
+https://nodejs.org
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Git - download and install
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+https://git-scm.com
+```
+#### Installing
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Clone the repo
 
-## Learn More
+```
+git clone https://github.com/PauliusJaras/admin
+```
 
-To learn more about Next.js, take a look at the following resources:
+Install NPM packages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+npm i
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Executing program
 
-## Deploy on Vercel
+Add **.env.local** file to the root folder and provide keys for these variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+GITHUB_CLIENT_ID="ID"
+GITHUB_CLIENT_SECRET="SECRET"
+GOOGLE_ID="ID"
+GOOGLE_SECRET="SECRET"
+MONGODB_URI="URI"
+S3_ACCESS_KEY="ACCESS KEY"
+S3_SECRET_ACCESS_KEY="SECRET ACCESS KEY"
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Run the server
+
+```
+npm run dev
+```
+
+## Help
+
+Contact the author for any questions 
+
+## Author
+
+[Paulius Jaras](https://www.linkedin.com/in/paulius-jaras/)
+
+## Version History
+
+* 0.1
+    * Initial Release
+
+## License
+
+This project is licensed under the [MIT] License - see the LICENSE.md file for details
+
+## Acknowledgments
+
+Inspiration: [Code With Dawid](https://github.com/dejwid/)
