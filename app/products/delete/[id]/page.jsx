@@ -1,8 +1,8 @@
 "use client";
 
-import ConfirmBox from "@/components/shared/ConfirmBox";
-import { useDeleteProduct } from "@/hooks/useDeleteProduct";
-import { useGetProducts } from "@/hooks/useGetProducts";
+import ConfirmBox from "/components/shared/ConfirmBox";
+import { useDeleteProduct } from "/hooks/useDeleteProduct";
+import { useGetProducts } from "/hooks/useGetProducts";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 

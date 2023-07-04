@@ -1,7 +1,7 @@
 "use client";
 
-import ProductForm from "@/components/products/ProductForm";
-import { useGetProducts } from "@/hooks/useGetProducts";
+import ProductForm from "/components/products/ProductForm";
+import { useGetProducts } from "/hooks/useGetProducts";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 

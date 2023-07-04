@@ -1,8 +1,8 @@
 "use client";
 
-import CategoryForm from "@/components/categories/CategoryForm";
-import Table from "@/components/shared/Table";
-import { GlobalContext } from "@/context/GlobalContext";
+import CategoryForm from "/components/categories/CategoryForm";
+import Table from "/components/shared/Table";
+import { GlobalContext } from "/context/GlobalContext";
 import axios from "axios";
 import { useContext } from "react";
 import Swal from "sweetalert2";
