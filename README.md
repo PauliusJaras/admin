@@ -2,6 +2,8 @@
 
 An admin panel that allows admin users to control the ecommerce website data. 
 
+Visit site - [Admin Panel](https://admin-nu-wine.vercel.app/)
+
 ## Description
 
 A project created with the latest Next js version (App Router), next Auth, amazon S3, tailwind, react, mongoDB, mongoose, and axios. Only authentificated users can access the platform. Users with access can CRUD products/categories and add new admins. They can also review and verify existing orders.
