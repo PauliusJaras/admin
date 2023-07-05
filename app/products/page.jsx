@@ -1,7 +1,7 @@
 "use client";
 
-import Table from "@/components/shared/Table";
-import { useGetProducts } from "@/hooks/useGetProducts";
+import Table from "/components/shared/Table";
+import { useGetProducts } from "/hooks/useGetProducts";
 import Link from "next/link";
 import { useEffect } from "react";
 
