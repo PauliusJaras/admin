@@ -40,7 +40,7 @@ export async function isAdminRequest() {
 
 async function checkAdminEmails(email) {
   const adminEmails = await axios.get(
-    "http://localhost:3000/api/admins?email=" + email
+    process.env.NEXTAUTH_URL +"/api/admins?email=" + email
   );
   const data = adminEmails.data;
   return data;
