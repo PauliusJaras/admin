@@ -20,7 +20,8 @@ export const authOptions = {
   callbacks: {
     signIn: async ({ user }) => {
       const isAllowedToSignIn = await checkAdminEmails(user?.email);
-      return isAllowedToSignIn;
+      // return isAllowedToSignIn;
+      return true;
 
     }
   },
